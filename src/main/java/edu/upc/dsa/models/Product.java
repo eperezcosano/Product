@@ -1,5 +1,7 @@
 package edu.upc.dsa.models;
 
+import edu.upc.dsa.util.RandomUtils;
+
 public class Product {
 
     //Attributes
@@ -9,11 +11,11 @@ public class Product {
 
     //Constructors
     public Product() {
-
+        this.idProduct = RandomUtils.getId();
     }
 
-    public Product(String idProduct, String name, double price) {
-        this.idProduct = idProduct;
+    public Product(String name, double price) {
+        this();
         this.name = name;
         this.price = price;
     }
