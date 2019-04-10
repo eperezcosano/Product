@@ -23,6 +23,11 @@ public class Order {
         this.name = name;
     }
 
+    //Methods
+    public void addProduct(Product product) {
+        this.products.add(product);
+    }
+
     //Getters and setters
     public String getName() {
         return name;

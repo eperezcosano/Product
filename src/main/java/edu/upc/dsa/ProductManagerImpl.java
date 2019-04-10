@@ -30,6 +30,20 @@ public class ProductManagerImpl implements ProductManager {
         return instance;
     }
 
+    @Override
+    public void addUser(String name, String surname) {
+        User user = new User(name, surname);
+        this.users.put(user.getIdUser(), user);
+        log.info("User added");
+    }
+
+    @Override
+    public void addProduct(String name, double price) {
+        Product product = new Product(name, price);
+        this.products.add(product);
+        log.info("Product added");
+    }
+
     //Methods
     @Override
     public List<Product> getProductsByPrice() {
@@ -134,5 +148,27 @@ public class ProductManagerImpl implements ProductManager {
         //End
         log.info("List of products (ordered by sales): " + products);
         return products;
+    }
+
+    @Override
+    public int numProducts() {
+        return this.products.size();
+    }
+
+    @Override
+    public int numOrders() {
+        return this.orders.size();
+    }
+
+    @Override
+    public int numUsers() {
+        return this.users.size();
+    }
+
+    @Override
+    public void clear() {
+        this.products = new LinkedList<>();
+        this.orders = new LinkedList<>();
+        this.users = new HashMap<>();
     }
 }

@@ -8,6 +8,22 @@ import java.util.List;
 public interface ProductManager {
 
     /**
+     * Add a new User
+     *
+     * @param name name of the user
+     * @param surname surname of the user
+     */
+    void addUser(String name, String surname);
+
+    /**
+     * Add a new Product
+     *
+     * @param name name of the product
+     * @param price price of the product
+     */
+    void addProduct(String name, double price);
+
+    /**
      * List of ordered products (ascending) by price
      * @return list of products
      */
@@ -40,4 +56,27 @@ public interface ProductManager {
      * @return list of products
      */
     List<Product> getProductsBySales();
+
+    /**
+     * Get number of products
+     * @return number of products
+     */
+    int numProducts();
+
+    /**
+     * Get number of orders
+     * @return number of orders
+     */
+    int numOrders();
+
+    /**
+     * Get number of users
+     * @return number of users
+     */
+    int numUsers();
+
+    /**
+     * Clear data structures
+     */
+    void clear();
 }
