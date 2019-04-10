@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
@@ -44,8 +45,12 @@ public class ProductManagerImpl implements ProductManager {
             log.error("User not found");
             throw new UserNotFoundException();
         }
-        this.products.put()
-        return null;
+        Order order = new Order(products);
+        log.info("Order crated: " + order);
+        user.addOrder(order);
+        log.info("Order added to user: " + user.getName());
+        log.info("Actual orders of this user: " + user.getOrders());
+        return order.getIdOrder();
     }
 
     @Override

@@ -9,7 +9,6 @@ public class Order {
 
     //Attributes
     private String idOrder;
-    private String name;
     private List<Product> products;
 
     //Constructors
@@ -18,9 +17,9 @@ public class Order {
         this.products = new LinkedList<>();
     }
 
-    public Order(String name) {
+    public Order(List<Product> products) {
         this();
-        this.name = name;
+        this.products = products;
     }
 
     //Getters and setters
@@ -30,14 +29,6 @@ public class Order {
 
     public void setIdOrder(String idOrder) {
         this.idOrder = idOrder;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Product> getProducts() {
