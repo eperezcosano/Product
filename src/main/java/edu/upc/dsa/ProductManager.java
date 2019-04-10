@@ -16,12 +16,11 @@ public interface ProductManager {
     /**
      * Place an order (which can consist of different products and in
      * different quantities) by an identified user
-     * @param products list of products
+     * @param order an order
      * @param idUser user identifier
      * @throws UserNotFoundException if user does not exist
-     * @return order identifier
      */
-    String placeOrder(List<Product> products, String idUser) throws UserNotFoundException;
+    void placeOrder(Order order, String idUser) throws UserNotFoundException;
 
     /**
      * Serve an order. The services are carried out in order of arrivals

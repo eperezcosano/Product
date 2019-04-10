@@ -1,13 +1,10 @@
 package edu.upc.dsa;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ProductManagerImpl implements ProductManager {
 
@@ -16,12 +13,15 @@ public class ProductManagerImpl implements ProductManager {
 
     //Facade
     private static ProductManagerImpl instance;
-    private HashMap<String, Product> products;
+    private List<Product> products;
+    private List<Order> orders;
     private HashMap<String, User> users;
 
     //Private Constructor
     private ProductManagerImpl() {
-        this.products = new HashMap<>();
+        this.products = new LinkedList<>();
+        this.orders = new LinkedList<>();
+        this.users = new HashMap<>();
     }
 
     //getInstance Method
@@ -33,38 +33,87 @@ public class ProductManagerImpl implements ProductManager {
     //Methods
     @Override
     public List<Product> getProductsByPrice() {
-        List<Product> products = new ArrayList<>(this.products.values());
-        log.info("List of products" + products);
+        //Start
+        List<Product> products = this.products;
+        log.info("List of products (without order): " + products);
+
+        //Sort by price
+        Collections.sort(products, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return (int) (o1.getPrice() - o2.getPrice());
+            }
+        });
+
+        //End
+        log.info("List of products (ordered by price): " + products);
         return products;
     }
 
     @Override
-    public String placeOrder(List<Product> products, String idUser) throws UserNotFoundException {
+    public void placeOrder(Order order, String idUser) throws UserNotFoundException {
+        //Start
+        log.info("List of orders:" + this.orders);
+
+        //Search user
         User user = this.users.get(idUser);
         if (user == null) {
             log.error("User not found");
             throw new UserNotFoundException();
         }
-        Order order = new Order(products);
-        log.info("Order crated: " + order);
+
+        //Add order to list of orders
+        this.orders.add(order);
+
+        //Add order to user
         user.addOrder(order);
         log.info("Order added to user: " + user.getName());
         log.info("Actual orders of this user: " + user.getOrders());
-        return order.getIdOrder();
+
+        //End
+        log.info("List of orders:" + this.orders);
     }
 
     @Override
     public void serveOrder(Order order) {
+        //
 
     }
 
     @Override
     public List<Order> getPlacedOrders(String idUser) throws UserNotFoundException {
-        return null;
+        //Start
+        log.info("List of products:" + this.products);
+
+        //Search user
+        User user = this.users.get(idUser);
+        if (user == null) {
+            log.error("User not found");
+            throw new UserNotFoundException();
+        }
+        log.info("User: " + user.getName());
+
+        //End
+        log.info("List of orders: " + user.getOrders());
+        return user.getOrders();
     }
 
     @Override
     public List<Product> getProductsBySales() {
-        return null;
+        //Start
+        List<Product> products = this.products;
+        log.info("List of products (without order): " + products);
+
+        //Sort by sales
+        Collections.sort(products, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return (o1.getSales() - o2.getSales());
+            }
+        });
+
+        //End
+        log.info("List of products (ordered by sales): " + products);
+        return products;
     }
 }
