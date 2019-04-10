@@ -1,10 +1,10 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.exceptions.UserNotFoundException;
-import edu.upc.dsa.models.Order;
-import edu.upc.dsa.models.Product;
+import edu.upc.dsa.exceptions.*;
+import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +16,7 @@ public class ProductManagerImpl implements ProductManager {
     //Facade
     private static ProductManagerImpl instance;
     private HashMap<String, Product> products;
+    private HashMap<String, User> users;
 
     //Private Constructor
     private ProductManagerImpl() {
@@ -31,11 +32,19 @@ public class ProductManagerImpl implements ProductManager {
     //Methods
     @Override
     public List<Product> getProductsByPrice() {
-        return null;
+        List<Product> products = new ArrayList<>(this.products.values());
+        log.info("List of products" + products);
+        return products;
     }
 
     @Override
     public String placeOrder(List<Product> products, String idUser) throws UserNotFoundException {
+        User user = this.users.get(idUser);
+        if (user == null) {
+            log.error("User not found");
+            throw new UserNotFoundException();
+        }
+        this.products.put()
         return null;
     }
 
