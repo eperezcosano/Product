@@ -11,13 +11,18 @@ public class Product {
 
     //Constructors
     public Product() {
-
+        this.sales = 0;
     }
 
-    public Product(String name, double price, int sales) {
+    public Product(String name, double price) {
+        this();
         this.name = name;
         this.price = price;
-        this.sales = sales;
+    }
+
+    //Methods
+    public void addSale() {
+        this.sales++;
     }
 
     //Getters and setters

@@ -14,7 +14,7 @@ public class ProductManagerImpl implements ProductManager {
     //Facade
     private static ProductManagerImpl instance;
     private List<Product> products;
-    private List<Order> orders;
+    private LinkedList<Order> orders;
     private HashMap<String, User> users;
 
     //Private Constructor
@@ -75,15 +75,33 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public void serveOrder(Order order) {
-        //
+    public void serveOrder() {
+        //Start
+        log.info("List of orders:" + this.orders);
+
+        //Order to serve
+        Order order = this.orders.remove();
+        log.info("Order to serve: " + order);
+
+        //Increment sales of every product in the order
+        for (Product product : order.getProducts()) {
+            product.addSale();
+            log.info("Product: " + product.getName() + ", Sale incremented: " + product.getSales());
+        }
+
+        //Set order sold
+        order.setSold(true);
+        log.info("Order served");
+
+        //End
+        log.info("List of orders:" + this.orders);
 
     }
 
     @Override
     public List<Order> getPlacedOrders(String idUser) throws UserNotFoundException {
         //Start
-        log.info("List of products:" + this.products);
+        log.info("List of orders:" + this.orders);
 
         //Search user
         User user = this.users.get(idUser);
@@ -95,7 +113,8 @@ public class ProductManagerImpl implements ProductManager {
 
         //End
         log.info("List of orders: " + user.getOrders());
-        return user.getOrders();
+        log.info("List of orders sold: " + user.getOrdersSold());
+        return user.getOrdersSold();
     }
 
     @Override

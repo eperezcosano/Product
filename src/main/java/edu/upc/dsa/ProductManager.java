@@ -25,7 +25,7 @@ public interface ProductManager {
     /**
      * Serve an order. The services are carried out in order of arrivals
      */
-    void serveOrder(Order order);
+    void serveOrder();
 
     /**
      * List of orders of a user that have already been made

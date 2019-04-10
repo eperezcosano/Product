@@ -8,29 +8,28 @@ import java.util.List;
 public class Order {
 
     //Attributes
-    private String idOrder;
+    private String name;
     private List<Product> products;
     private boolean sold;
 
     //Constructors
     public Order() {
-        this.idOrder = RandomUtils.getId();
         this.products = new LinkedList<>();
         this.sold = false;
     }
 
-    public Order(List<Product> products) {
+    public Order(String name) {
         this();
-        this.products = products;
+        this.name = name;
     }
 
     //Getters and setters
-    public String getIdOrder() {
-        return idOrder;
+    public String getName() {
+        return name;
     }
 
-    public void setIdOrder(String idOrder) {
-        this.idOrder = idOrder;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Product> getProducts() {

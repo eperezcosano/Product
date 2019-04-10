@@ -2,6 +2,7 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +29,14 @@ public class User {
     //Methods
     public void addOrder(Order order) {
         this.orders.add(order);
+    }
+
+    public List<Order> getOrdersSold() {
+        List<Order> res = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.isSold()) res.add(order);
+        }
+        return res;
     }
 
     //Getters and setters
