@@ -1,7 +1,5 @@
 package edu.upc.dsa.models;
 
-import edu.upc.dsa.util.RandomUtils;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,17 +14,31 @@ public class User {
 
     //Constructors
     public User() {
-        this.idUser = RandomUtils.getId();
+
+    }
+
+    public User(String idUser, String name, String surname) {
+        this.idUser = idUser;
+        this.name = name;
+        this.surname = surname;
         this.orders = new LinkedList<>();
     }
 
-    public User(String name, String surname) {
-        this();
-        this.name = name;
-        this.surname = surname;
+    //Methods
+    @Override
+    public String toString() {
+        String string =
+                "[id: " + idUser + ", " +
+                "Name: " + name + ", " +
+                "Surname: " + surname + " , " +
+                "Orders: ";
+        for (Order order : orders) {
+            string += order.getName() + ", ";
+        }
+        string += "]";
+        return string;
     }
 
-    //Methods
     public void addOrder(Order order) {
         this.orders.add(order);
     }

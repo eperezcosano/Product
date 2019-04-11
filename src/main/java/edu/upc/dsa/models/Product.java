@@ -1,7 +1,5 @@
 package edu.upc.dsa.models;
 
-import edu.upc.dsa.util.RandomUtils;
-
 public class Product {
 
     //Attributes

@@ -1,7 +1,5 @@
 package edu.upc.dsa.models;
 
-import edu.upc.dsa.util.RandomUtils;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +24,19 @@ public class Order {
     //Methods
     public void addProduct(Product product) {
         this.products.add(product);
+    }
+
+    @Override
+    public String toString() {
+
+        String res = "";
+        for (Product p : this.products) {
+            res += p.getName() + ",";
+        }
+
+        return "[Name: " + this.name + ", " +
+                "Products: " + res +
+                " Sold: " + this.sold + "]";
     }
 
     //Getters and setters

@@ -13,13 +13,13 @@ public class ProductManagerImpl implements ProductManager {
 
     //Facade
     private static ProductManagerImpl instance;
-    private List<Product> products;
+    private HashMap<String, Product> products;
     private LinkedList<Order> orders;
     private HashMap<String, User> users;
 
     //Private Constructor
     private ProductManagerImpl() {
-        this.products = new LinkedList<>();
+        this.products = new HashMap<>();
         this.orders = new LinkedList<>();
         this.users = new HashMap<>();
     }
@@ -31,24 +31,24 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public void addUser(String name, String surname) {
-        User user = new User(name, surname);
+    public void addUser(String idUser, String name, String surname) {
+        User user = new User(idUser, name, surname);
         this.users.put(user.getIdUser(), user);
-        log.info("User added");
+        log.info("User " + user.getName() + " added");
     }
 
     @Override
     public void addProduct(String name, double price) {
         Product product = new Product(name, price);
-        this.products.add(product);
-        log.info("Product added");
+        this.products.put(product.getName(), product);
+        log.info("Product " + product.getName() + " added");
     }
 
     //Methods
     @Override
     public List<Product> getProductsByPrice() {
         //Start
-        List<Product> products = this.products;
+        List<Product> products = new ArrayList<>(this.products.values());
         log.info("List of products (without order): " + products);
 
         //Sort by price
@@ -65,7 +65,7 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public void placeOrder(Order order, String idUser) throws UserNotFoundException {
+    public void placeOrder(String name, List<String> idProducts, String idUser) throws ProductNotFoundException, UserNotFoundException {
         //Start
         log.info("List of orders:" + this.orders);
 
@@ -75,6 +75,18 @@ public class ProductManagerImpl implements ProductManager {
             log.error("User not found");
             throw new UserNotFoundException();
         }
+
+        //Make order
+        Order order = new Order(name);
+        for (String id : idProducts) {
+            Product product = this.products.get(id);
+            if (product == null) {
+                log.error("Product not found: " + id);
+                throw new ProductNotFoundException();
+            }
+            order.addProduct(product);
+        }
+        log.info("Order created: " + order);
 
         //Add order to list of orders
         this.orders.add(order);
@@ -134,7 +146,7 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public List<Product> getProductsBySales() {
         //Start
-        List<Product> products = this.products;
+        List<Product> products = new ArrayList<>(this.products.values());
         log.info("List of products (without order): " + products);
 
         //Sort by sales
@@ -167,7 +179,7 @@ public class ProductManagerImpl implements ProductManager {
 
     @Override
     public void clear() {
-        this.products = new LinkedList<>();
+        this.products = new HashMap<>();
         this.orders = new LinkedList<>();
         this.users = new HashMap<>();
     }

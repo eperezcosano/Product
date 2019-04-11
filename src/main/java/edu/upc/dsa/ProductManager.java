@@ -9,15 +9,14 @@ public interface ProductManager {
 
     /**
      * Add a new User
-     *
+     * @param idUser user identifier
      * @param name name of the user
      * @param surname surname of the user
      */
-    void addUser(String name, String surname);
+    void addUser(String idUser, String name, String surname);
 
     /**
      * Add a new Product
-     *
      * @param name name of the product
      * @param price price of the product
      */
@@ -32,11 +31,12 @@ public interface ProductManager {
     /**
      * Place an order (which can consist of different products and in
      * different quantities) by an identified user
-     * @param order an order
+     * @param name order name
+     * @param idProducts list of products identifier
      * @param idUser user identifier
      * @throws UserNotFoundException if user does not exist
      */
-    void placeOrder(Order order, String idUser) throws UserNotFoundException;
+    void placeOrder(String name, List<String> idProducts, String idUser) throws ProductNotFoundException, UserNotFoundException;
 
     /**
      * Serve an order. The services are carried out in order of arrivals
