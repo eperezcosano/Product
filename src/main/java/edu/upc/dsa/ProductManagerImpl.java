@@ -139,8 +139,8 @@ public class ProductManagerImpl implements ProductManager {
 
         //End
         log.info("List of orders: " + user.getOrders());
-        log.info("List of orders sold: " + user.getOrdersSold());
-        return user.getOrdersSold();
+        //log.info("List of orders sold: " + user.getOrdersSold());
+        return user.getOrders();
     }
 
     @Override
