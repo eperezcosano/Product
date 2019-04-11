@@ -23,6 +23,11 @@ public class Product {
         this.sales++;
     }
 
+    @Override
+    public String toString() {
+        return "[Name: " + name + ", Price: " + price + ", Sales: " + sales + "]";
+    }
+
     //Getters and setters
     public String getName() {
         return name;
